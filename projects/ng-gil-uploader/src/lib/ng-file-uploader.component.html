@@ -1,5 +1,8 @@
 <div class="button-wrapper">
+    <!-- file input, not visible -->
     <input type="file" hidden #file accept="image/*" [multiple]="isMultiple" (change)="readURL($event)" />
+
+    <!-- file upload button, trigger the input file click-->
     <button class="upload-button" (click)="file.click()">
         <div class="upload-label">
             <span *ngIf="buttonLabel.length">{{ buttonLabel }}</span>
@@ -19,11 +22,19 @@
 <!-- thumbanil and list view -->
 <ul class="list-wrapper" *ngIf="showThumbnails">
     <li class="list-item" *ngFor="let file of uploadedList; let i = index">
+
+        <!-- image -->
         <div class="image-wrapper">
-            <img src="{{ file.uploadedUrl }}" class="image" alt="{{file.data.name.split('.').slice(0, -1).join('.')}}" />
+            <img src="{{ file.url }}" class="image" alt="{{file.data.name.split('.').slice(0, -1).join('.')}}" />
         </div>
+
+        <!-- file info-->
         <div class="file-info">
+            
+            <!-- file name -->
             <div class="file-name">{{ file.data.name }}</div>
+
+            <!-- file size in KB-->
             <div class="file-size">{{ file.data.size / 1024 }} KB</div>
         </div>
         <div class="close-button" (click)="removeAddedFile(i)">x</div>
