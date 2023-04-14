@@ -17,7 +17,7 @@ export interface Config {
   accept: string;
   maxFileSize: number;
 }
-
+// file inout interfaacwe
 export interface FileInputInterface {
   file : File;
   url : string | any;
