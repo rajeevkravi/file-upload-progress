@@ -56,7 +56,11 @@ export class NgFileUploaderComponent {
    * emit the values
    */
   @Output()
-  onUpload: EventEmitter<FileModel[]> = new EventEmitter<FileModel[]>();
+  onUpload: EventEmitter<FileModel | FileModel[]> = new EventEmitter<FileModel | FileModel[]>();
+
+  // emit removing item
+  @Output()
+  onRemove: EventEmitter<FileModel> = new EventEmitter<FileModel>();
 
   /**
    * constructor to load all dependencies
@@ -66,7 +70,7 @@ export class NgFileUploaderComponent {
   /**
    * rea file
    */
-  readURL(event: any) {
+  readURL(event: any) {    
     for (let index = 0; index < event.target.files.length; index++) {
       const file = event.target.files[index];
       this.generateUploadListModel(file)
@@ -80,13 +84,16 @@ export class NgFileUploaderComponent {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (_event) => {
+      // object for file model
       const data = {
         file: file,
         url: reader.result,
         progress: 0,
       }
+
+      // push files to list
       this.uploadedList.push(new FileModel(data));
-      this.emitValues();
+      this.emitValues(new FileModel(data));
     };
 
   }
@@ -94,8 +101,10 @@ export class NgFileUploaderComponent {
   /**
    * emit vaklues
    */
-  private emitValues() {
-    if (this.autoSave) {
+  private emitValues(data? : FileModel) {
+    if (this.autoSave && data) {
+      this.onUpload.emit(data);
+    } else {
       this.onUpload.emit(this.uploadedList);
     }
   }
@@ -103,6 +112,6 @@ export class NgFileUploaderComponent {
   //remove added files
   removeAddedFile(index: number) {
     this.uploadedList.splice(index, 1);
-    this.emitValues();
+    this.onRemove.emit(this.uploadedList[index]);
   }
 }

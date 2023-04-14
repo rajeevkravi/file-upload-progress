@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FileModel } from 'projects/ng-gil-uploader/src/lib/ng-file-uploader.model';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,9 @@ export class AppComponent {
 
   onUpload(event : any) {
     console.log(event);
+  }
+
+  onRemove(event : FileModel) {
+    console.log(event)
   }
 }
