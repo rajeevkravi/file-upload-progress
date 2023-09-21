@@ -14,7 +14,7 @@ export class NgFileUploaderComponent {
   /**
      * label to show in the button
      */
-  @Input() buttonLabel = 'Drop your image here, or ';
+  @Input() buttonLabel = 'Drop your images here, or ';
 
   /**
    * browse label
