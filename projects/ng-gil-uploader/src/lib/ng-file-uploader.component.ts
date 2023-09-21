@@ -11,6 +11,7 @@ import { FileModel } from './ng-file-uploader.model';
   styleUrls: ['./ng-file-uploader.component.scss']
 })
 export class NgFileUploaderComponent {
+  
   /**
      * label to show in the button
      */
